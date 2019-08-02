@@ -141,6 +141,3 @@ while True:
     get_input()
     DayResult = calculate_day()
     print(f'This date falls on a {DayResult}.\n')
-
-
-print('Thank you!')
