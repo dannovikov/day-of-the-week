@@ -1,15 +1,16 @@
 # This program implements an algorithm for figuring
 # out which day of the week a given date is.
+import sys
 
 # Global variables used for calculation:
 month, day, year = 0, 0, 0
-f2_year, l2_year = 0, 0     # first two and last two digits of the year
-month_code, century_code = 0, 0     # Algorithm uses special numbers for month and century
+f2_year, l2_year = 0, 0  # first two and last two digits of the year
+month_code, century_code = 0, 0  # Algorithm uses special numbers for month and century
 
 # Dictionaries:
 month_codes = {
-    1: 1,           # January
-    2: 4,           # February
+    1: 1,  # January
+    2: 4,  # February
     3: 4,
     4: 0,
     5: 2,
@@ -19,14 +20,14 @@ month_codes = {
     9: 6,
     10: 1,
     11: 4,
-    12: 6           # December
+    12: 6  # December
 }
 
 century_codes = {
-    17: 4,          #1700s
-    18: 2,          #1800s
+    17: 4,  # 1700s
+    18: 2,  # 1800s
     19: 0,
-    20: 6           #2000s
+    20: 6  # 2000s
 }
 
 day_codes = {
@@ -42,10 +43,11 @@ day_codes = {
 
 # Get valid user input
 def get_input():
-    x = input('Please enter a date, in MM/DD/YYYY format:\n')
-    
+    x = input('Please enter a date, in MM/DD/YYYY format, or \'q\' to quit:\n')
+
     if x == 'q':
-        
+        sys.exit()
+
     while len(x) < 10:
         x = input('Please follow the input format MM/DD/YYYY:\n')
     parse_input(x)
@@ -53,11 +55,10 @@ def get_input():
 
 # Parse input date
 def parse_input(user_input):
-
     str_month, str_day, str_year = '', '', ''
     refined_input = user_input.replace('/', '')
 
-    #refined_input is now a string of 8 numbers with slashes removed
+    # refined_input is now a string of 8 numbers with slashes removed
 
     for i in range(len(refined_input)):
         if i < 2:
@@ -71,7 +72,7 @@ def parse_input(user_input):
 
     global month, day, year, month_code, century_code
     month, day, year = \
-        int(str_month),\
+        int(str_month), \
         int(str_day), \
         int(str_year)
 
@@ -81,8 +82,8 @@ def parse_input(user_input):
         while year < 1700:
             year += 400
         # print(f'Year has been converted to {year} for calculations.')
-    elif year > 2100:
-        while year > 2100:
+    elif year >= 2100:
+        while year >= 2100:
             year -= 400
         # print(f'Year has been converted to {year} for calculations.')
 
@@ -108,7 +109,7 @@ def calculate_day():
     global day, l2_year, month, year, month_code, century_code
 
     f = l2_year
-    f = int(f/4)
+    f = int(f / 4)
     f += day
     f += month_code
 
@@ -134,19 +135,12 @@ def check_leap(year):
                 result = True
     return result
 
+
 # Main
 while True:
     get_input()
     DayResult = calculate_day()
     print(f'This date falls on a {DayResult}.\n')
-    try_again = input('Would you like to try another date? y/n: \n')
-    while try_again != 'y' and try_again != 'n':
-        print('Please write either \'y\' or \'n\'')
-        try_again = input('Would you like to try another date? y/n: \n')
+
 
 print('Thank you!')
-
-
-
-
-
