@@ -1,15 +1,10 @@
 # This program implements an algorithm for figuring
 # out which day of the week a given date is.
 
-# Initializing global variables used for calculation:
-
+# Global variables used for calculation:
 month, day, year = 0, 0, 0
-
-# first two and last two digits of the year
-f2_year, l2_year = 0, 0
-
-# algorithm requires specific numbers for month and century
-month_code, century_code = 0, 0
+f2_year, l2_year = 0, 0     # first two and last two digits of the year
+month_code, century_code = 0, 0     # Algorithm uses special numbers for month and century
 
 # Dictionaries:
 month_codes = {
@@ -29,7 +24,7 @@ month_codes = {
 
 century_codes = {
     17: 4,          #1700s
-    18: 2,
+    18: 2,          #1800s
     19: 0,
     20: 6           #2000s
 }
@@ -45,15 +40,18 @@ day_codes = {
 }
 
 
-# to get valid user input
+# Get valid user input
 def get_input():
     x = input('Please enter a date, in MM/DD/YYYY format:\n')
+    
+    if x == 'q':
+        
     while len(x) < 10:
-        print('Please follow the input format MM/DD/YYYY:\n')
+        x = input('Please follow the input format MM/DD/YYYY:\n')
     parse_input(x)
 
 
-# to parse input for date
+# Parse input date
 def parse_input(user_input):
 
     str_month, str_day, str_year = '', '', ''
@@ -136,9 +134,8 @@ def check_leap(year):
                 result = True
     return result
 
-
-try_again = 'y'
-while try_again == 'y':
+# Main
+while True:
     get_input()
     DayResult = calculate_day()
     print(f'This date falls on a {DayResult}.\n')
